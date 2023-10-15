@@ -1,4 +1,4 @@
-const accsessKey = "tjOcV7CAaZTEFwutPz9Uxs75Tlx5tq39F4Dodg6vYWM";
+const accessKey = "tjOcV7CAaZTEFwutPz9Uxs75Tlx5tq39F4Dodg6vYWM";
 
 const formEl = document.querySelector("form");
 const inputEl = document.getElementById("search-input");
@@ -10,7 +10,7 @@ let page = 1;
 
 async function searchImages() {
   inputData = inputEl.value;
-  const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client-id=${accsessKey}`;
+  const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}`;
 
   const response = await fetch(url);
   const data = await response.json();
@@ -34,7 +34,7 @@ async function searchImages() {
 
     imageWrapper.appendChild(image);
     imageWrapper.appendChild(imageLink);
-    imageWrapper.appendChild(imageWrapper);
+    searchResults.appendChild(imageWrapper);
   });
 
   page++;
@@ -42,3 +42,13 @@ async function searchImages() {
     showMore.style.display = "block";
   }
 }
+
+formEl.addEventListener("submit", (event) => {
+  event.preventDefault();
+  page = 1;
+  searchImages();
+});
+
+showMore.addEventListener("click", () => {
+  searchImages();
+});
